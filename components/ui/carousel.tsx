@@ -37,7 +37,7 @@ export async function Carousel({collection}:
             <Link
               key={`${product.handle}${i}`}
               href={`/products/${product.handle}`}
-              className="h-50 w-1/2 md-w-1/3 flex-none"
+              className="h-50 w-1/2 md:w-1/3 flex-none"
             >
               <GridTileImage
                 alt={product.title}
