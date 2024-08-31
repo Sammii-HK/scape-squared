@@ -19,18 +19,21 @@ export async function Carousel({collection}:
 
   if (!products?.length) return null;
 
+  const Title = ({title}: {title: string}) => {
+    return (
+      <h4 className='text-lg md:text-xl text-black md:mb-3'>{title}</h4>
+
+    )
+  }
+
   return (
     <div className='max-w-full'>
       {scapeTitle && 
         <Link href={`/search/${scapeTitle}`}>
-          <p className='text-lg text-bold'>{scapeTitle}</p>
+          <Title title={scapeTitle} />
         </Link>
       }
-      {!scapeTitle && 
-        // <Link href={`/search/${scapeTitle}`}>
-          <p className='text-lg text-bold'>All Scapes</p>
-        // </Link>
-      }
+      {!scapeTitle && <Title title="Popular Products" />}
       <div className=" w-full overflow-x-auto pb-6 pt-1 border-neutral-300 border-bottom:not-last-of-type">
         <div className="flex animate-carousel gap-4">
           {[...products, ...products].map((product, i) => (
