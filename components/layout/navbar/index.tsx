@@ -1,16 +1,69 @@
 import Cart from 'components/cart';
 import OpenCart from 'components/cart/open-cart';
 import LogoType from 'components/ui/logo-type';
-import { getMenu } from 'lib/shopify';
+// import { getMenu } from 'lib/shopify';
+import { collectionTypes } from '@/lib/utils';
 import { Menu } from 'lib/shopify/types';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import MobileMenu from './mobile-menu';
-const { SITE_NAME } = process.env;
+// const { SITE_NAME } = process.env;
+
+// set key of dropdown as active dropdown state, if ke matches state then show dropdown items,
+// this allows only one dropdown to be shown at a time, great for mobile,
+// look at transition animation so dropdown reveals itself from the title
+const collectionItems = collectionTypes.map(item => {
+  return {
+    title: item,
+    path: `/collections/${item}`,
+  }
+});
+
+const sizes = [ '2XS', 'XS', 'S', 'M', 'L', 'XL', '2XL', '3XL' ];
+const sizeItems = sizes.map(size => {
+  return {
+    title: size,
+    path: `/collections/wardrobe?size=${size}`
+  }
+});
+
+
+const menu = [
+  { title: "Collections",
+    items: collectionItems,
+  },
+  {
+    title: "All Products",
+    path: "/collections/all-products",
+  },
+  {
+    title: "Art for the",
+    items: [
+      {
+        title: "Wall",
+        path: "/collections/wall",
+      },
+      {
+        title: "Wardrobe",
+        path: "/collections/wardrobe",
+      },
+    ]
+  },
+  {
+    title: "Shop 2xs-4xl",
+    items: sizeItems,
+  },
+  {
+    title: "About",
+    path: "/about",
+  },
+  {
+    title: "Responsibility",
+    path: "/responsibility",
+  }
+]
 
 export default async function Navbar() {
-  const menu = await getMenu('next-js-frontend-header-menu');
-
   return (
     <nav className="relative flex items-center justify-between p-4 lg:px-6 bg-black">
       <div className="block flex-none md:hidden">
@@ -21,12 +74,8 @@ export default async function Navbar() {
           <Link
             href="/"
             aria-label="Go back home"
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
+            className="flex w-full items-center justify-center md:w-auto lg:mr-6"
           >
-            {/* <LogoSquare /> */}
-            {/* <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div> */}
             <LogoType />
           </Link>
           {/* {menu.length ? (
@@ -51,12 +100,12 @@ export default async function Navbar() {
             <ul className="hidden text-sm md:flex md:items-center">
               {menu.map((item: Menu) => (
                 <li key={item.title}>
-                  <Link
+                  {/* <Link
                     href={item.path}
                     className="m-3 text-neutral-500 underline-offset-4 hover:text-black hover:underline dark:text-neutral-400 dark:hover:text-neutral-300 lg:mr-8"
                   >
                     {item.title}
-                  </Link>
+                  </Link> */}
                 </li>
               ))}
             </ul>
