@@ -1,13 +1,12 @@
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
-import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu, MenuItem } from 'lib/shopify/types';
-import Search from './search';
+import { Menu } from 'lib/shopify/types';
+import MenuDropdownItem from './menu-dropdown-item';
 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const pathname = usePathname();
@@ -15,6 +14,7 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
   const [isOpen, setIsOpen] = useState(false);
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
+  const [activeDropdown, setActiveDropdown] = useState("collections")
 
   useEffect(() => {
     const handleResize = () => {
@@ -60,28 +60,20 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
             <Dialog.Panel className="fixed bottom-0 left-0 right-0 top-0 flex h-full w-full flex-col bg-neutral-800/95 pb-6 dark:bg-black">
               <div className="p-4">
                 <button className="mb-4" onClick={closeMobileMenu} aria-label="Close mobile menu">
-                  <XMarkIcon className="h-6" />
+                  <XMarkIcon className="h-6 text-neutral-100" />
                 </button>
+                {activeDropdown}
 
-                <div className="mb-4 w-full">
-                  <Search />
-                </div>
                 {menu.length ? (
                   <ul className="flex flex-col text-white">
                     {menu.map((item: Menu) => (
-                      <li className="mb-7 flex flex-col" key={item.title}>
-                        <p className='font-light text-xl cursor-pointer'>{item.title}</p>
-                        {item.items?.map((item: MenuItem) => (
-                          <Link
-                            key={item.title}
-                            href={item.path}
-                            className="rounded-lg py-1 text-xl text-neutral-200 transition-colors hover:text-neutral-500 dark:text-white"
-                            // onClick={closeMobileMenu}
-                          >
-                            {item.title}
-                          </Link>
-                        ))}
-                      </li>
+                      <div key={item.title}>
+                        <MenuDropdownItem
+                          activeDropdown={activeDropdown}
+                          item={item}
+                          setActiveDropdown={setActiveDropdown}
+                        />
+                      </div>
                     ))}
                   </ul>
                 ) : null}
