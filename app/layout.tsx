@@ -34,7 +34,7 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <meta name="google-site-verification" content="nU-MGbKTYYrFX-Yh7SIgQ1szTEoYTF08PZU1nihRS6g" />
-      <body className="bg-neutral-950 text-neutral-50">
+      <body className="bg-neutral-50 text-neutral-500">
         <Navbar />
         <Suspense>
           <main>{children}</main>
