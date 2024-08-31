@@ -6,7 +6,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu } from 'lib/shopify/types';
+import { Menu, MenuItem } from 'lib/shopify/types';
 import Search from './search';
 
 export default function MobileMenu({ menu }: { menu: Menu[] }) {
@@ -67,16 +67,20 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                   <Search />
                 </div>
                 {menu.length ? (
-                  <ul className="flex flex-col">
+                  <ul className="flex flex-col text-white">
                     {menu.map((item: Menu) => (
-                      <li className="mb-4" key={item.title}>
-                        <Link
-                          href={item.path}
-                          className="rounded-lg py-1 text-xl text-neutral-200 transition-colors hover:text-neutral-500 dark:text-white"
-                          onClick={closeMobileMenu}
-                        >
-                          {item.title}
-                        </Link>
+                      <li className="mb-7 flex flex-col" key={item.title}>
+                        <p className='font-light text-xl cursor-pointer'>{item.title}</p>
+                        {item.items?.map((item: MenuItem) => (
+                          <Link
+                            key={item.title}
+                            href={item.path}
+                            className="rounded-lg py-1 text-xl text-neutral-200 transition-colors hover:text-neutral-500 dark:text-white"
+                            // onClick={closeMobileMenu}
+                          >
+                            {item.title}
+                          </Link>
+                        ))}
                       </li>
                     ))}
                   </ul>
