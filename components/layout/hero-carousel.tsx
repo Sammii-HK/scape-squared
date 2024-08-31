@@ -25,7 +25,7 @@ export const HeroCarousel = () => {
   }, [activeCarouselItem])
 
   return (
-    <Link className='cursor-pointer' href={`/collection/${activeCarouselItem!.key}`}>
+    <Link className='cursor-pointer' href={`/collections/${activeCarouselItem!.key}`}>
       <Image className='md:hidden' width="640" height="640" alt={activeCarouselItem!.alt} src={`/carousel/${activeCarouselItem!.key}.jpg`} />
       <Image className='hidden md:block' width="1400" height="450" alt={activeCarouselItem!.alt} src={`/carousel/${activeCarouselItem!.key}-tablet.jpg`} />
     </Link>

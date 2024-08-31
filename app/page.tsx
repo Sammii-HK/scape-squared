@@ -26,7 +26,7 @@ const CollectionCarousel = ({collection}: {collection: "flowerscapes" | "foliage
     foliagescapes: "/foliagescape-1.jpg",
   }
   return (
-    <Link href={`collection/${collection}`} className='col-span-1 cursor-pointer'>
+    <Link href={`collections/${collection}`} className='col-span-1 cursor-pointer'>
       <Image width="640" height="640" className="w-full" alt={collection} src={src[collection]} />
       <div className="flex mb-5 pt-2 justify-between align-middle">
         <h5 className='text-3xl capitalize'>{collection}</h5>
