@@ -22,14 +22,11 @@ export default async function CollectionPage({
   };
 
   const currentProducts = await getCollection();
-  console.log("currentProducts", currentProducts);
-  
-
   return (
     <div className="p-8">
       <h2 className="text-2xl mb-5 capitalize">{params.collection}</h2>
       <div className="grid grid-col-1 md:grid-cols-3 lg:grid-cols-4 gap-7">
-        <ProductGridItems products={currentProducts} colSpan={1} />
+        <ProductGridItems products={currentProducts} colSpan={1} searchParams={searchParams} />
       </div>
     </div>
   )

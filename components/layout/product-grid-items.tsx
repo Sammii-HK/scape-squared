@@ -1,14 +1,25 @@
-import Grid from 'components/grid';
-import { GridTileImage } from 'components/grid/tile';
 import { Product } from 'lib/shopify/types';
 import Link from 'next/link';
+import Grid from '../grid';
+import { GridTileImage } from '../grid/tile';
 
-export default function ProductGridItems({ products, colSpan }: { products: Product[], colSpan?: Number }) {
+export default function ProductGridItems(
+  {
+    products,
+    colSpan,
+    searchParams,
+  }: { 
+    products: Product[],
+    colSpan?: Number,
+    searchParams: { [key: string]: string | string[] | undefined; } | undefined
+  }) {
+  const sizeParam = searchParams?.size;
+  const sizeSearchParam = `?size=${sizeParam}`
   return (
     <>
       {products.map((product) => (
         <Grid.Item key={product.handle} className={`animate-fadeIn ${colSpan}`}>
-          <Link className="inline-block h-full w-full" href={`/products/${product.handle}`}>
+          <Link className="inline-block h-full w-full" href={`/products/${product.handle}/${sizeSearchParam}`}>
             <GridTileImage
               alt={product.title}
               label={{
