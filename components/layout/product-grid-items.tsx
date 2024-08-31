@@ -3,11 +3,11 @@ import { GridTileImage } from 'components/grid/tile';
 import { Product } from 'lib/shopify/types';
 import Link from 'next/link';
 
-export default function ProductGridItems({ products, colSpan }: { products: Product[], colSpan: Number }) {
+export default function ProductGridItems({ products, colSpan }: { products: Product[], colSpan?: Number }) {
   return (
     <>
       {products.map((product) => (
-        <Grid.Item key={product.handle} className="animate-fadeIn">
+        <Grid.Item key={product.handle} className={`animate-fadeIn ${colSpan}`}>
           <Link className="inline-block h-full w-full" href={`/products/${product.handle}`}>
             <GridTileImage
               alt={product.title}
