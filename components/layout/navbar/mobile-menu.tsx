@@ -1,20 +1,20 @@
-'use client';
+"use client";
 
 import { Dialog, Transition } from '@headlessui/react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Fragment, useEffect, useState } from 'react';
 
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { Menu } from 'lib/shopify/types';
-import MenuDropdownItem from './menu-dropdown-item';
+import MenuCategories from './menu-categories';
 
-export default function MobileMenu({ menu }: { menu: Menu[] }) {
+// export default function MobileMenu({ menu }: { menu: Menu[] }) {
+export default function MobileMenu() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
-  const [activeDropdown, setActiveDropdown] = useState("collections")
+  // const [activeDropdown, setActiveDropdown] = useState("collections")
 
   useEffect(() => {
     const handleResize = () => {
@@ -62,21 +62,8 @@ export default function MobileMenu({ menu }: { menu: Menu[] }) {
                 <button className="mb-4" onClick={closeMobileMenu} aria-label="Close mobile menu">
                   <XMarkIcon className="h-6 text-neutral-100" />
                 </button>
-                {activeDropdown}
 
-                {menu.length ? (
-                  <ul className="flex flex-col text-white">
-                    {menu.map((item: Menu) => (
-                      <div key={item.title}>
-                        <MenuDropdownItem
-                          activeDropdown={activeDropdown}
-                          item={item}
-                          setActiveDropdown={setActiveDropdown}
-                        />
-                      </div>
-                    ))}
-                  </ul>
-                ) : null}
+                <MenuCategories display="mobile" />
               </div>
             </Dialog.Panel>
           </Transition.Child>
