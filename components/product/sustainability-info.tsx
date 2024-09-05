@@ -3,7 +3,7 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@components/ui/accordion";
 import { credentials, credentialsKeys } from "constants/sustainability";
 import Link from "next/link";
 

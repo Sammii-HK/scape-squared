@@ -1,8 +1,13 @@
-import clsx from "clsx";
-import { ReadonlyURLSearchParams } from 'next/navigation';
-import { getCollectionProducts, getProducts } from './shopify';
 
-export const cn = clsx;
+import { type ClassValue, clsx } from "clsx";
+import { ReadonlyURLSearchParams } from 'next/navigation';
+import { twMerge } from "tailwind-merge";
+import { getCollectionProducts, getProducts } from './shopify';
+ 
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
+
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();

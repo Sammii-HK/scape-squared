@@ -21,9 +21,10 @@
 //     </div>
 //   );
 // }
+import Image from "next/image";
 
-export default function LogoType(props: React.ComponentProps<'img'>) {
+export default function LogoType() {
   return (
-    <img src="/logo-white.png" alt="scape squared logo" className="w-24"/>
+    <Image src="/logo-white.png" alt="scape squared logo" className="w-24"/>
   );
 }

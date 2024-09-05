@@ -22,9 +22,9 @@
       }
     ],
     "paths": {
-      "@/components/*": ["./components/*"],
-      "@/src/*": ["./app/*"],
-      "@/lib/*": ["./lib/*"],
+      "@components/*": ["./components/*"],
+      "@src/*": ["./app/*"],
+      "@lib/*": ["./lib/*"],
       "@/*": ["./*"],
     }
   },

@@ -1,6 +1,6 @@
-import Cart from "@/components/cart";
-import OpenCart from "@/components/cart/open-cart";
-import LogoTypographyIcon from "@/components/icons/logo-typography";
+import Cart from "@components/cart";
+import OpenCart from "@components/cart/open-cart";
+import LogoTypographyIcon from "@components/icons/logo-typography";
 import Link from "next/link";
 import { Suspense } from "react";
 import DesktopMenu from "./desktop-menu";
