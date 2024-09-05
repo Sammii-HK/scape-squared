@@ -7,14 +7,12 @@ import { Fragment, useEffect, useState } from 'react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 import MenuCategories from './menu-categories';
 
-// export default function MobileMenu({ menu }: { menu: Menu[] }) {
 export default function MobileMenu() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isOpen, setIsOpen] = useState(false);
   const openMobileMenu = () => setIsOpen(true);
   const closeMobileMenu = () => setIsOpen(false);
-  // const [activeDropdown, setActiveDropdown] = useState("collections")
 
   useEffect(() => {
     const handleResize = () => {
@@ -32,7 +30,7 @@ export default function MobileMenu() {
 
   return (
     <>
-      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden text-white">
+      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden text-white absolute top-4 p-1">
         <Bars3Icon className="h-6" />
       </button>
       <Transition show={isOpen}>
@@ -63,7 +61,7 @@ export default function MobileMenu() {
                   <XMarkIcon className="h-6 text-neutral-100" />
                 </button>
 
-                <MenuCategories display="mobile" />
+                <MenuCategories display="mobile" openFirstTab={true} />
               </div>
             </Dialog.Panel>
           </Transition.Child>
