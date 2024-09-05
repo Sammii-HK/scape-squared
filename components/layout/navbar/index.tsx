@@ -5,7 +5,7 @@ import MobileMenu from './mobile-menu';
 
 export default async function Navbar() {
   return (
-    <nav className="relative flex items-center justify-between p-4 lg:px-6 bg-neutral-900 md:flex-col sticky">
+    <nav className="flex items-center justify-between p-4 lg:px-6 bg-neutral-900 md:flex-col sticky top-0 z-50">
       <div className="block flex-none md:hidden">
         <MobileMenu />
       </div>
