@@ -66,7 +66,7 @@ export default function MenuDropdownItem(
         <Link
           key={item.title}
           href={item.path}
-          className={`${classes.dropdownLinks} capitalize md:text-sm rounded-lg py-1 text-md text-neutral-100 transition-colors hover:text-neutral-500 dark:text-white`}
+          className={`${classes.dropdownLinks} capitalize md:text-sm rounded-lg py-1 text-md text-neutral-400 transition-colors hover:text-neutral-500 dark:text-white`}
           onClick={() => setActiveDropdown(null)}
         >
           {item.title}

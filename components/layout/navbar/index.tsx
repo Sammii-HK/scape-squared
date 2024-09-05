@@ -18,7 +18,7 @@ export default async function Navbar() {
         <Link href="/">
           <LogoTypographyIcon />
         </Link>
-        <div className="absolute flex right-0 align-middle">
+        <div className="absolute flex right-0 align-middle w-[85%] md:w-auto lg:mr-3">
           <Search />
           <Suspense fallback={<OpenCart />}>
             <Cart />
