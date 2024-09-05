@@ -11,8 +11,9 @@ export function VariantDetails({ product }: { product: Product }) {
 
   return (
     <>
-      <div className='border-b mb-6 border-neutral-500 dark:border-neutral-700 display-flex justify-end'>
-        <div className="place-self-end justify-end mr-auto w-25 roundedp-2 text-sm text-neutral-300 mb-6">
+      <div className='flex align-middle justify-between border-b mb-6 border-neutral-500 dark:border-neutral-700'>
+        <h1 className="mb-2 text-xl sm:text-2xl md:text-3xl font-medium">{product.title}</h1>
+        <div className="flex justify-end self-center text-sm text-neutral-400">
           <Price
             amount={selectedVariant?.price?.amount || product.variants[0]!.price.amount}
             currencyCode={product.priceRange.maxVariantPrice.currencyCode}
