@@ -9,7 +9,7 @@ import Search from "./search";
 
 export default async function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-4 lg:px-6 bg-neutral-900 md:flex-col sticky top-0 z-40">
+    <nav className="flex items-center justify-between p-4 lg:px-6 bg-neutral-900 md:flex-col sticky top-0 z-40 select-none">
       <div className="block flex-none md:hidden">
         <MobileMenu />
       </div>
