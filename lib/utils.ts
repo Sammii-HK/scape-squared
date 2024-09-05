@@ -1,5 +1,8 @@
+import clsx from "clsx";
 import { ReadonlyURLSearchParams } from 'next/navigation';
 import { getCollectionProducts, getProducts } from './shopify';
+
+export const cn = clsx;
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
