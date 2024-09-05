@@ -41,7 +41,7 @@ export default function MenuDropdownItem(
 
   const handleActiveDropdown = () => {
     if (item.key === activeDropdown) setActiveDropdown(null);
-    else setActiveDropdown(item.key)
+    else setActiveDropdown(item.key!)
   }
   
   return (
@@ -58,11 +58,11 @@ export default function MenuDropdownItem(
       {item.items && (
         <div className={`flex justify-between cursor-pointer align-middle ${classes.link}`} onClick={handleActiveDropdown}>
           <p className='font-light text-xl md:text-sm pr-1'>{item.title}</p>
-          {!checkIfActiveTab(item.key) && <ChevronDownIcon className='h-6 self-center' />}
-          {checkIfActiveTab(item.key) && <ChevronUpIcon className='h-6 self-center' />}
+          {!checkIfActiveTab(item.key!) && <ChevronDownIcon className='h-6 self-center' />}
+          {checkIfActiveTab(item.key!) && <ChevronUpIcon className='h-6 self-center' />}
         </div>
       )}
-      {checkIfActiveTab(item.key) && item.items?.map((item: MenuItem) => (
+      {checkIfActiveTab(item.key!) && item.items?.map((item: MenuItem) => (
         <Link
           key={item.title}
           href={item.path}
