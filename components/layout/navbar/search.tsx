@@ -3,13 +3,14 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { createUrl } from 'lib/utils';
+import { SearchIcon } from 'lucide-react';
 
 export default function Search() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [searchValue, setSearchValue] = useState('');
+  const [searchIsActive, setSearchIsActive] = useState(false);
 
   useEffect(() => {
     setSearchValue(searchParams?.get('q') || '');
@@ -32,19 +33,22 @@ export default function Search() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="relative w-full lg:w-[320px]">
-      <input
-        type="text"
-        name="search"
-        placeholder="Search for products..."
-        autoComplete="off"
-        value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
-        className="w-full rounded-lg border bg-white px-4 py-2 text-sm text-black placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
-      />
-      <div className="absolute right-0 top-0 mr-3 flex h-full items-center">
-        <MagnifyingGlassIcon className="h-4" />
-      </div>
-    </form>
+    <div className='mr-3 h-11'>
+      {!searchIsActive && <SearchIcon onClick={() => setSearchIsActive(true)} className="h-11 text-white" />}
+      {searchIsActive && <form onSubmit={onSubmit} className="relative w-full lg:w-[350px] align-middle flex">
+        <input
+          type="text"
+          name="search"
+          placeholder="Search for products..."
+          autoComplete="off"
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
+          className="w-full rounded-lg border bg-black h-11 border-white py-1 px-2 text-sm text-white placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
+        />
+        <div className="absolute right-0 top-0 mr-1 flex items-center align-middle">
+          <SearchIcon className="h-11" />
+        </div>
+    </form>}
+    </div>
   );
 }
