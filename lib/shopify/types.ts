@@ -42,9 +42,9 @@ export type Image = {
 
 export type Menu = {
   title: string;
-  path: string;
+  path?: string;
   key: string;
-  items: MenuItem[];
+  items?: MenuItem[];
 };
 
 export type MenuItem = {
