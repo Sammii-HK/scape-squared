@@ -11,7 +11,7 @@ export default function MenuCategories({
   openFirstTab
 }:{
   display: 'desktop' |'mobile',
-  openFirstTab: boolean
+  openFirstTab?: boolean
 }) {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
