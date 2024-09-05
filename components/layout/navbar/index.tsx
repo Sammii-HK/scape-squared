@@ -9,13 +9,13 @@ import Search from "./search";
 
 export default async function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-4 lg:px-6 bg-neutral-900 md:flex-col sticky top-0 z-50">
+    <nav className="flex items-center justify-between p-4 lg:px-6 bg-neutral-900 md:flex-col sticky top-0 z-40">
       <div className="block flex-none md:hidden">
         <MobileMenu />
       </div>
       {/* socials ? */}
       <div className="flex w-full justify-center md:pb-4">
-        <Link href="/">
+        <Link className="z-50" href="/">
           <LogoTypographyIcon />
         </Link>
         <div className="absolute flex right-0 align-middle w-[85%] md:w-auto lg:mr-3">

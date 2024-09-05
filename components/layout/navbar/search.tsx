@@ -35,7 +35,7 @@ export default function Search() {
   return (
     <div className='mr-3 h-8 w-full flex justify-end'>
       {!searchIsActive && <SearchIcon onClick={() => setSearchIsActive(true)} className="h-8 text-white cursor-pointer" />}
-      {searchIsActive && <form onSubmit={onSubmit} className="relative w-full lg:w-[350px] align-middle flex">
+      {searchIsActive && <form onSubmit={onSubmit} className="relative w-full lg:w-[350px] align-middle flex z-50">
         <div className="absolute left-2 top-0 mr-1 flex items-center align-middle">
           <SearchIcon className="h-8" />
         </div>
