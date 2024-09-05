@@ -94,7 +94,7 @@ export default async function SKUCheckPage() {
                   }
                 >
                   {variant.sku.split('').map((letter, lIdx) => (
-                    <span className="relative">
+                    <span key={letter} className="relative">
                       {letter}
                       {letter === skus[i]![lIdx] ? null : (
                         <div className="absolute left-0 right-0 top-0 bottom-0 bg-red-500 animate-ping rounded" />

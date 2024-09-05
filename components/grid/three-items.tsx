@@ -37,7 +37,7 @@ export async function ThreeItemGrid() {
     <>
       <section className="mx-auto grid max-w-screen-2xl gap-4 px-4 pb-4 lg:grid-cols-6 lg:grid-rows-6 mt-6">
         {homepageItems.map(item => (
-          <ThreeItemGridItem size="half" item={item} />
+          <ThreeItemGridItem key={item.id} size="half" item={item} />
         ))}
       </section>
     </>

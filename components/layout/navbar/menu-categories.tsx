@@ -30,7 +30,7 @@ export default function MenuCategories({
 
   useEffect(() => {
     if (openFirstTab) setActiveDropdown("collections");
-  }, [])
+  }, [openFirstTab])
   
   return (
       <ul className={`flex ${classes.ul} text-white`}>

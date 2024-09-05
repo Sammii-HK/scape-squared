@@ -81,7 +81,7 @@ export function VariantSelector({
 
   useEffect(() => {
     setSelectedVariant(selectedVariant);
-  }, [selectedVariantUrl]);
+  }, [selectedVariantUrl, selectedVariant, setSelectedVariant]);
 
   if (hasNoOptionsOrJustOneOption) {
     return null;
