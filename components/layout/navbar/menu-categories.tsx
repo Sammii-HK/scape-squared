@@ -2,12 +2,18 @@
 
 import { menu } from "@/constants/menu";
 import { Menu } from 'lib/shopify/types';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MenuDropdownItem from "./menu-dropdown-item";
 
 
-export default function MenuCategories({ display }:{ display: 'desktop' |'mobile' }) {
-  const [activeDropdown, setActiveDropdown] = useState("");
+export default function MenuCategories({
+  display,
+  openFirstTab
+}:{
+  display: 'desktop' |'mobile',
+  openFirstTab: boolean
+}) {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const displayClasses = () => {
     let classes
@@ -18,16 +24,14 @@ export default function MenuCategories({ display }:{ display: 'desktop' |'mobile
       ul: 'flex-col',
     }
     return classes
-  }
-
-  console.log("display", display);
+  };
   
-
   const classes = displayClasses();
 
-  console.log("classes", classes);
+  useEffect(() => {
+    if (openFirstTab) setActiveDropdown("collections");
+  }, [])
   
-
   return (
       <ul className={`flex ${classes.ul} text-white`}>
         {menu.map((item: Menu) => (
