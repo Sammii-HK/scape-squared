@@ -11,7 +11,7 @@ export default function ProductGridItems(
   }: { 
     products: Product[],
     colSpan?: Number,
-    searchParams: { [key: string]: string | string[] | undefined; } | undefined
+    searchParams?: { [key: string]: string | string[] | undefined; } | undefined
   }) {
   const sizeParam = searchParams?.size;
   const sizeSearchParam = `?size=${sizeParam}`
