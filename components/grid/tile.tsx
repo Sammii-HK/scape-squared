@@ -22,7 +22,7 @@ export function GridTileImage({
       className={clsx(
         'flex h-full w-full items-center justify-center overflow-hidden rounded-lg bg-white dark:bg-black aspect-square align-middle',
         {
-          relative: label,
+          relative: label
         }
       )}
     >
@@ -32,6 +32,9 @@ export function GridTileImage({
           className={clsx('relative h-full w-full object-cover', {
             'transition duration-300 ease-in-out hover:scale-105': isInteractive
           })}
+          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          quality={70}
+          loading={props.priority ? undefined : 'lazy'}
           {...props}
         />
       ) : null}

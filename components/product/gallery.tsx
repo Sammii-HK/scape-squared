@@ -21,16 +21,18 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
 
   return (
     <div className="lg:mr-8 h-full w-full justify-center">
-      <div className="relative mb-2 lg:mb-12 aspect-square overflow-hidden flex lg:w-full lg:h-auto"> 
+      <div className="relative mb-2 lg:mb-12 aspect-square overflow-hidden flex lg:w-full lg:h-auto">
         {images[currentImageIndex] && (
-            <Image
-              className="relative w-full h-full object-cover"
-              height={500}
-              width={500}
-              alt={images[currentImageIndex]?.altText as string}
-              src={images[currentImageIndex]?.src as string}
-              priority={true}
-            />
+          <Image
+            className="relative w-full h-full object-cover"
+            height={500}
+            width={500}
+            alt={images[currentImageIndex]?.altText as string}
+            src={images[currentImageIndex]?.src as string}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            quality={85}
+            priority={true}
+          />
         )}
 
         {images.length > 1 ? (
@@ -70,8 +72,10 @@ export function Gallery({ images }: { images: { src: string; altText: string }[]
                 <GridTileImage
                   alt={image.altText}
                   src={image.src}
-                  width={50}
-                  height={50}
+                  width={80}
+                  height={80}
+                  sizes="80px"
+                  quality={60}
                   active={isActive}
                 />
               </button>

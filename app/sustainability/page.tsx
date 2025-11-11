@@ -1,4 +1,4 @@
-import { SustainabilityInfo } from "components/product/sustainability-info";
+import { SustainabilityInfo } from 'components/product/sustainability-info';
 
 export default function SustainabilityStatement() {
   return (
@@ -7,5 +7,5 @@ export default function SustainabilityStatement() {
         <SustainabilityInfo />
       </div>
     </div>
-  )
+  );
 }

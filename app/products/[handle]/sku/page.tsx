@@ -1,8 +1,8 @@
-import { ProductSKUs } from "components/product/sku-generator";
-import { HIDDEN_PRODUCT_TAG } from "lib/constants";
-import { getProduct } from "lib/shopify";
-import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { ProductSKUs } from 'components/product/sku-generator';
+import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
+import { getProduct } from 'lib/shopify';
+import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
   params
@@ -43,13 +43,13 @@ export async function generateMetadata({
 }
 
 export default async function ViewSKUs({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);  
-  
-  if (!product) return  
-  
+  const product = await getProduct(params.handle);
+
+  if (!product) return;
+
   return (
     <>
       <ProductSKUs productTitle={product.title} noTitle={true} />
     </>
-  )
-};
+  );
+}

@@ -22,11 +22,12 @@ type OptimizedVariant = {
 export function VariantSelector({
   options,
   variants,
-  setSelectedVariant,
+  setSelectedVariant
 }: {
   options: ProductOption[];
   variants: ProductVariant[];
-  setSelectedVariant: (value: OptimizedVariant | undefined) => void,
+  // eslint-disable-next-line no-unused-vars
+  setSelectedVariant: (value: OptimizedVariant | undefined) => void;
 }) {
   const pathname = usePathname();
   const currentParams = useSearchParams();
@@ -35,8 +36,8 @@ export function VariantSelector({
     !options.length || (options.length === 1 && options[0]?.values.length === 1);
   // Discard any unexpected options or values from url and create params map.
   const paramsMap: ParamsMap = Object.fromEntries(
-    Array.from(currentParams.entries()).filter(([key, value]) =>
-      options.find((option) => option.name.toLowerCase() === key && option.values.includes(value))
+    Array.from(currentParams.entries()).filter(([key, val]) =>
+      options.find((option) => option.name.toLowerCase() === key && option.values.includes(val))
     )
   );
 
@@ -46,7 +47,7 @@ export function VariantSelector({
       id: variant.id,
       availableForSale: variant.availableForSale,
       params: new URLSearchParams(),
-      price: variant.price,
+      price: variant.price
     };
 
     variant.selectedOptions.forEach((selectedOption) => {
@@ -81,12 +82,13 @@ export function VariantSelector({
 
   useEffect(() => {
     setSelectedVariant(selectedVariant);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedVariantUrl]);
 
   if (hasNoOptionsOrJustOneOption) {
     return null;
   }
-  
+
   if (currentUrl !== selectedVariantUrl) {
     router.replace(selectedVariantUrl);
   }
@@ -128,7 +130,8 @@ export function VariantSelector({
               className={clsx(
                 'flex min-w-[48px] items-center justify-center rounded-3 px-2 py-1 text-sm text-neutral-500 ',
                 {
-                  'cursor-default ring-1 ring-gray-600 bg-neutral-900 text-white dark:bg-neutral-900': isActive,
+                  'cursor-default ring-1 ring-gray-600 bg-neutral-900 text-white dark:bg-neutral-900':
+                    isActive,
                   'ring-1 ring-transparent transition duration-300 ease-in-out hover:scale-110 hover:ring-gray-600 border border-neutral-600 dark:border-neutral-800':
                     !isActive && isAvailableForSale,
                   'relative  z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-neutral-400 dark:ring-neutral-700 before:dark:bg-neutral-700':

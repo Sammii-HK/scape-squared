@@ -33,25 +33,32 @@ export default function Search() {
   }
 
   return (
-    <div className='mr-3 h-8 w-full flex justify-end'>
-      {!searchIsActive && <SearchIcon onClick={() => setSearchIsActive(true)} className="h-8 text-white cursor-pointer" />}
-      {searchIsActive && <form onSubmit={onSubmit} className="relative w-full lg:w-[350px] align-middle flex z-50">
-        <div className="absolute left-2 top-0 mr-1 flex items-center align-middle">
-          <SearchIcon className="h-8" />
-        </div>
-        <input
-          type="text"
-          name="search"
-          placeholder="Search for products..."
-          autoComplete="off"
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          className="w-full rounded-lg border bg-black bg-opacity-90 h-8 pl-10 border-white border-spacing-2 py-1 px-2 text-sm text-white placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
+    <div className="mr-3 h-8 w-full flex justify-end">
+      {!searchIsActive && (
+        <SearchIcon
+          onClick={() => setSearchIsActive(true)}
+          className="h-8 text-white cursor-pointer"
         />
-        <div className="absolute right-0 top-0 mr-1 flex items-center align-middle">
-          <XIcon className="h-8 cursor-pointer" onClick={() => setSearchIsActive(false)} />
-        </div>
-    </form>}
+      )}
+      {searchIsActive && (
+        <form onSubmit={onSubmit} className="relative w-full lg:w-[350px] align-middle flex z-50">
+          <div className="absolute left-2 top-0 mr-1 flex items-center align-middle">
+            <SearchIcon className="h-8" />
+          </div>
+          <input
+            type="text"
+            name="search"
+            placeholder="Search for products..."
+            autoComplete="off"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            className="w-full rounded-lg border bg-black bg-opacity-90 h-8 pl-10 border-white border-spacing-2 py-1 px-2 text-sm text-white placeholder:text-neutral-500 dark:border-neutral-800 dark:bg-transparent dark:text-white dark:placeholder:text-neutral-400"
+          />
+          <div className="absolute right-0 top-0 mr-1 flex items-center align-middle">
+            <XIcon className="h-8 cursor-pointer" onClick={() => setSearchIsActive(false)} />
+          </div>
+        </form>
+      )}
     </div>
   );
 }

@@ -48,8 +48,8 @@ export type Menu = {
 };
 
 export type MenuItem = {
-  title: string,
-  path: string
+  title: string;
+  path: string;
 };
 
 export type Money = {

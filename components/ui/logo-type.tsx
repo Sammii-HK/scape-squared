@@ -21,10 +21,8 @@
 //     </div>
 //   );
 // }
-import Image from "next/image";
+import Image from 'next/image';
 
 export default function LogoType() {
-  return (
-    <Image src="/logo-white.png" alt="scape squared logo" className="w-24"/>
-  );
+  return <Image src="/logo-white.png" alt="scape squared logo" className="w-24" />;
 }
