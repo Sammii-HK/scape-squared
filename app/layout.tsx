@@ -58,7 +58,12 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     logo: `${siteUrl}/logo-square-black.png`,
     description:
       'Consciously created, art to wear, altering angles. 100% organic cotton garments. Worldwide shipping. 100% plastic free.',
-    sameAs: []
+    sameAs: [
+      'https://www.instagram.com/scapesquared',
+      'https://www.tiktok.com/@scapesquared',
+      'https://x.com/scapesquared',
+      'https://www.facebook.com/scapesquared'
+    ]
   };
 
   const websiteSchema = {

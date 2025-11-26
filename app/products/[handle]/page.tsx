@@ -7,6 +7,7 @@ import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
+import { Breadcrumbs } from 'components/ui/breadcrumbs';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
@@ -127,6 +128,13 @@ export default async function ProductPage({ params }: { params: { handle: string
       />
       <ProductViewTracker product={product} />
       <div className="mx-auto max-w-screen-2xl px-4">
+        <Breadcrumbs 
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Products', href: '/search' },
+            { label: product.title }
+          ]} 
+        />
         <div className="rounded-lg p-8 px-4 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-3 flex justify-center">
             <Gallery
