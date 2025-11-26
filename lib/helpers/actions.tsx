@@ -7,5 +7,5 @@ export function capitalizeFirstLetter(string: string) {
 }
 
 export function getKeyByValue<O extends object>(object: O, value: O[keyof O]) {
-  return Object.keys(object).find(key => object[key as keyof O] === value);
+  return Object.keys(object).find((key) => object[key as keyof O] === value);
 }

@@ -2,16 +2,20 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
 
+import { ProductViewTracker } from 'components/analytics/product-view-tracker';
 import { GridTileImage } from 'components/grid/tile';
 import Footer from 'components/layout/footer';
 import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
+import { Breadcrumbs } from 'components/ui/breadcrumbs';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
 import { getProduct, getProductRecommendations } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
+import { getCanonicalUrl } from 'lib/utils';
 import Link from 'next/link';
 
 export const runtime = 'edge';
+export const revalidate = 86400; // Revalidate daily (24 hours)
 
 export async function generateMetadata({
   params
@@ -23,17 +27,21 @@ export async function generateMetadata({
   if (!product) return notFound();
 
   const { url, width, height, altText: alt } = product.featuredImage || {};
-  const hide = !product.tags.includes(HIDDEN_PRODUCT_TAG);
+  const hide = product.tags.includes(HIDDEN_PRODUCT_TAG);
+  const canonicalUrl = getCanonicalUrl(`/products/${params.handle}`);
 
   return {
     title: product.seo.title || product.title,
     description: product.seo.description || product.description,
+    alternates: {
+      canonical: canonicalUrl
+    },
     robots: {
-      index: hide,
-      follow: hide,
+      index: !hide,
+      follow: !hide,
       googleBot: {
-        index: hide,
-        follow: hide
+        index: !hide,
+        follow: !hide
       }
     },
     openGraph: url
@@ -45,7 +53,8 @@ export async function generateMetadata({
               height,
               alt
             }
-          ]
+          ],
+          url: canonicalUrl
         }
       : null
   };
@@ -56,12 +65,20 @@ export default async function ProductPage({ params }: { params: { handle: string
 
   if (!product) return notFound();
 
+  const siteUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : process.env.NEXT_PUBLIC_SITE_URL || 'https://scapedsquared.com';
+
   const productJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.title,
     description: product.description,
-    image: product.featuredImage.url,
+    image: product.images.map((img: Image) => img.url),
+    brand: {
+      '@type': 'Brand',
+      name: 'scape²'
+    },
     offers: {
       '@type': 'AggregateOffer',
       availability: product.availableForSale
@@ -69,8 +86,30 @@ export default async function ProductPage({ params }: { params: { handle: string
         : 'https://schema.org/OutOfStock',
       priceCurrency: product.priceRange.minVariantPrice.currencyCode,
       highPrice: product.priceRange.maxVariantPrice.amount,
-      lowPrice: product.priceRange.minVariantPrice.amount
-    }
+      lowPrice: product.priceRange.minVariantPrice.amount,
+      offerCount: product.variants.length
+    },
+    url: `${siteUrl}/products/${product.handle}`,
+    sku: product.id
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: siteUrl
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: product.title,
+        item: `${siteUrl}/products/${product.handle}`
+      }
+    ]
   };
 
   return (
@@ -81,7 +120,21 @@ export default async function ProductPage({ params }: { params: { handle: string
           __html: JSON.stringify(productJsonLd)
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbJsonLd)
+        }}
+      />
+      <ProductViewTracker product={product} />
       <div className="mx-auto max-w-screen-2xl px-4">
+        <Breadcrumbs 
+          items={[
+            { label: 'Home', href: '/' },
+            { label: 'Products', href: '/search' },
+            { label: product.title }
+          ]} 
+        />
         <div className="rounded-lg p-8 px-4 dark:bg-black md:p-12 lg:grid lg:grid-cols-6">
           <div className="lg:col-span-3 flex justify-center">
             <Gallery
@@ -91,7 +144,7 @@ export default async function ProductPage({ params }: { params: { handle: string
               }))}
             />
           </div>
-          
+
           <div className="lg:col-span-3 lg:grid lg:grid-cols-6">
             <div className="pt-6 lg:py-6 lg:col-span-4 lg:col-start-2">
               <ProductDescription product={product} />
@@ -135,6 +188,7 @@ async function RelatedProducts({ id }: { id: string }) {
                 src={product.featuredImage?.url}
                 width={600}
                 height={600}
+                loading="lazy"
               />
             </Link>
           );

@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
 import { usePathname, useSearchParams } from 'next/navigation';
@@ -30,7 +30,11 @@ export default function MobileMenu() {
 
   return (
     <>
-      <button onClick={openMobileMenu} aria-label="Open mobile menu" className="md:hidden text-white absolute top-4 p-1">
+      <button
+        onClick={openMobileMenu}
+        aria-label="Open mobile menu"
+        className="md:hidden text-white absolute top-4 p-1"
+      >
         <Bars3Icon className="h-6" />
       </button>
       <Transition show={isOpen}>

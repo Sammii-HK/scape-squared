@@ -1,44 +1,72 @@
-
-import { type ClassValue, clsx } from "clsx";
+import { type ClassValue, clsx } from 'clsx';
 import { ReadonlyURLSearchParams } from 'next/navigation';
-import { twMerge } from "tailwind-merge";
+import { twMerge } from 'tailwind-merge';
 import { getCollectionProducts, getProducts } from './shopify';
- 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
 
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 export const createUrl = (pathname: string, params: URLSearchParams | ReadonlyURLSearchParams) => {
   const paramsString = params.toString();
   const queryString = `${paramsString.length ? '?' : ''}${paramsString}`;
 
   return `${pathname}${queryString}`;
+};
+
+export function getCanonicalUrl(
+  pathname: string,
+  searchParams?: URLSearchParams | ReadonlyURLSearchParams
+): string {
+  const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
+    ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
+    : process.env.NEXT_PUBLIC_SITE_URL || 'https://scapedsquared.com';
+
+  // Remove trailing slash and ensure clean pathname
+  const cleanPathname = pathname.replace(/\/$/, '') || '/';
+
+  if (searchParams && searchParams.toString()) {
+    return `${baseUrl}${cleanPathname}?${searchParams.toString()}`;
+  }
+
+  return `${baseUrl}${cleanPathname}`;
 }
 
-export const collectionTypes = [ 'flowerscapes', 'foliagescapes', 'naturescapes', 'skyscapes', 'urbanscapes'];
+export const collectionTypes = [
+  'flowerscapes',
+  'foliagescapes',
+  'naturescapes',
+  'skyscapes',
+  'urbanscapes'
+];
 
 export async function getLiveWardrobeProducts(query?: Parameters<typeof getProducts>[0]) {
   const products = await getProducts(query || {});
-  const liveProducts = products.filter((product) => !product.tags.includes('hidden-product') && product.tags.includes('tshirt'));
+  const liveProducts = products.filter(
+    (product) => !product.tags.includes('hidden-product') && product.tags.includes('tshirt')
+  );
   return liveProducts;
 }
 
 export async function getLiveWallProducts(query?: Parameters<typeof getProducts>[0]) {
   const products = await getProducts(query || {});
-  const liveProducts = products.filter((product) => !product.tags.includes('hidden-product') && product.tags.includes('print'));
+  const liveProducts = products.filter(
+    (product) => !product.tags.includes('hidden-product') && product.tags.includes('print')
+  );
   return liveProducts;
 }
 
-export async function getLiveCollectionProducts(query: Parameters<typeof getCollectionProducts>[0]) {
+export async function getLiveCollectionProducts(
+  query: Parameters<typeof getCollectionProducts>[0]
+) {
   const products = await getCollectionProducts(query);
   const liveProducts = products.filter((product) => !product.tags.includes('hidden-product'));
   return liveProducts;
 }
 
-export async function getAllLiveProducts(query?: Parameters<typeof getProducts>[0]) {  
-  const searchQuery = query || { query: undefined, reverse: undefined, sortKey: undefined}
+export async function getAllLiveProducts(query?: Parameters<typeof getProducts>[0]) {
+  const searchQuery = query || { query: undefined, reverse: undefined, sortKey: undefined };
   const products = await getProducts(searchQuery);
   const liveProducts = products.filter((product) => !product.tags.includes('hidden-product'));
-  return liveProducts
+  return liveProducts;
 }

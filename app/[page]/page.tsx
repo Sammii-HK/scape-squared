@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 
 export const runtime = 'edge';
 
-export const revalidate = 43200; // 12 hours in seconds
+export const revalidate = 86400; // Revalidate daily (24 hours)
 
 export async function generateMetadata({
   params

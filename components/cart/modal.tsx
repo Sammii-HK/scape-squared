@@ -3,12 +3,15 @@
 import { Dialog, Transition } from '@headlessui/react';
 import Price from 'components/ui/price';
 import { DEFAULT_OPTION } from 'lib/constants';
+import { trackBeginCheckout } from 'lib/analytics/events';
 import type { Cart } from 'lib/shopify/types';
 import { createUrl } from 'lib/utils';
 import { ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { EmailCapture } from 'components/conversion/email-capture';
+import { TrustSignals } from 'components/conversion/trust-signals';
 import CloseCart from './close-cart';
 import DeleteItemButton from './delete-item-button';
 import EditItemQuantityButton from './edit-item-quantity-button';
@@ -115,6 +118,8 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                                   className="h-full w-full object-cover "
                                   width={64}
                                   height={64}
+                                  sizes="64px"
+                                  quality={60}
                                   alt={
                                     item.merchandise.product.featuredImage.altText ||
                                     item.merchandise.product.title
@@ -175,9 +180,23 @@ export default function CartModal({ cart }: { cart: Cart | undefined }) {
                       />
                     </div>
                   </div>
+                  <TrustSignals />
+                  <EmailCapture />
                   <a
                     href={cart.checkoutUrl}
-                    className="block w-full rounded bg-neutral-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100"
+                    onClick={() => {
+                      trackBeginCheckout({
+                        value: parseFloat(cart.cost.totalAmount.amount),
+                        currency: cart.cost.totalAmount.currencyCode,
+                        items: cart.lines.map((item) => ({
+                          id: item.merchandise.product.id,
+                          name: item.merchandise.product.title,
+                          price: parseFloat(item.cost.totalAmount.amount) / item.quantity,
+                          quantity: item.quantity
+                        }))
+                      });
+                    }}
+                    className="block w-full rounded bg-neutral-600 p-3 text-center text-sm font-medium text-white opacity-90 hover:opacity-100 mt-3"
                   >
                     Proceed to Checkout
                   </a>

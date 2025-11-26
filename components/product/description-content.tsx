@@ -1,72 +1,38 @@
-import { SCAPE } from 'constants/brand';
-import { productTypes } from 'constants/item-details';
-import { credentials, credentialsKeys } from 'constants/sustainability';
+import { getProductDetails, isWallArt } from 'constants/item-details';
 import { Product } from 'lib/shopify/types';
-import Link from 'next/link';
 
 export function DescriptionContent({ product }: { product: Product }) {
-  const productTypeKeys = Object.keys(productTypes);
-  const checkProductType = () => {
-    return product.tags.find(tag => productTypeKeys.includes(tag));
-  }
-  const productType = checkProductType() as keyof typeof productTypes & string;
+  const productDetails = getProductDetails(product.tags);
 
-  const getCertificationId = (toFind: string) => credentialsKeys.find(key => key === toFind);
-
-  if (!productType) {
-    return null;
-  }
-  
-  const itemDetails = productTypes[productType];
-
-  if (!itemDetails) {
+  if (!productDetails) {
     return null;
   }
 
-  const certificationLink = (credType: keyof typeof credentials) => {
-    return <Link 
-    className='text-underline text-xs' 
-    href={`#${getCertificationId(credType)}`}
-    > {credentials[credType].title} certified</Link>
-  }
-
-  const commonDetailKeys = Object.keys(itemDetails.common)
+  const isGarment = !isWallArt(product.tags);
 
   return (
-    <>
-      <div className="mt-6">
-        <h4 className='text-lg'>Consciously created, art to wear, altering angles, by {SCAPE}</h4>
-        <div>
-          <p className='font-bold mt-6'>Details:</p>
-          <ul className='list-disc list-inside'>
-            <li className='mt-2'>
-              {itemDetails.content}*
-              {/* {certificationLink('gots')} */}
-            </li>
-            <li className='mt-1'>
-              {itemDetails.print}
-              {/* {certificationLink('oekoEco')} */}
-            </li>
-            {/* <li className='mt-1'>{itemDetails.weight.feel} weight, {itemDetails.weight.gsm} GSM</li> */}
-            {commonDetailKeys.map(detail => (
+    <div className="mt-6">
+      <h4 className="text-sm font-semibold mb-3 uppercase tracking-wide text-neutral-900 dark:text-neutral-100">
+        Product Details
+      </h4>
+      <ul className="space-y-2 text-sm text-neutral-600 dark:text-neutral-400">
+        {productDetails.details.map((detail, index) => (
+          <li key={index}>{detail}</li>
+        ))}
+      </ul>
 
-              // <div>{detail}</div>
-              <li key={detail} className="mt-1">
-                {itemDetails.common[detail as keyof typeof itemDetails.common]}
-              </li>
+      {isGarment && productDetails.careInstructions && (
+        <div className="mt-6">
+          <h4 className="text-sm font-semibold mb-3 uppercase tracking-wide text-neutral-900 dark:text-neutral-100">
+            Care Instructions
+          </h4>
+          <ul className="space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
+            {productDetails.careInstructions.map((instruction, index) => (
+              <li key={index}>{instruction}</li>
             ))}
-
-            <p className='mt-4 text-xs'>
-              * Yes you read that right, 100%, this includes our brand label.
-            </p>
           </ul>
-          <Link href="/sustainability">
-              <p className='font-bold mt-4'>
-                Sustainability Statement
-              </p>
-          </Link>
         </div>
-      </div>
-    </>
-  )
-};
+      )}
+    </div>
+  );
+}

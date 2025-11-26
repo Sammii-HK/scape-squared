@@ -3,23 +3,25 @@ import Link from 'next/link';
 import Grid from '../grid';
 import { GridTileImage } from '../grid/tile';
 
-export default function ProductGridItems(
-  {
-    products,
-    colSpan,
-    searchParams,
-  }: { 
-    products: Product[],
-    colSpan?: Number,
-    searchParams?: { [key: string]: string | string[] | undefined; } | undefined
-  }) {
+export default function ProductGridItems({
+  products,
+  colSpan,
+  searchParams
+}: {
+  products: Product[];
+  colSpan?: Number;
+  searchParams?: { [key: string]: string | string[] | undefined } | undefined;
+}) {
   const sizeParam = searchParams?.size;
-  const sizeSearchParam = `?size=${sizeParam}`
+  const sizeSearchParam = `?size=${sizeParam}`;
   return (
     <>
       {products.map((product) => (
         <Grid.Item key={product.handle} className={`animate-fadeIn ${colSpan}`}>
-          <Link className="inline-block h-full w-full" href={`/products/${product.handle}/${sizeSearchParam}`}>
+          <Link
+            className="inline-block h-full w-full"
+            href={`/products/${product.handle}/${sizeSearchParam}`}
+          >
             <GridTileImage
               alt={product.title}
               label={{
@@ -30,6 +32,7 @@ export default function ProductGridItems(
               src={product.featuredImage?.url}
               width={600}
               height={600}
+              loading="lazy"
             />
           </Link>
         </Grid.Item>

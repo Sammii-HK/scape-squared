@@ -16,7 +16,8 @@ module.exports = {
     'unicorn/filename-case': [
       'error',
       {
-        case: 'kebabCase'
+        case: 'kebabCase',
+        ignore: ['themeContext.tsx'] // Legacy file, keep as-is to avoid breaking imports
       }
     ]
   }

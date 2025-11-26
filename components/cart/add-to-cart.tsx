@@ -4,16 +4,19 @@ import { PlusIcon } from '@heroicons/react/24/outline';
 import clsx from 'clsx';
 import { addItem } from 'components/cart/actions';
 import LoadingDots from 'components/ui/loading-dots';
-import { ProductVariant } from 'lib/shopify/types';
+import { trackAddToCart } from 'lib/analytics/events';
+import { ProductVariant, Product } from 'lib/shopify/types';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState, useTransition } from 'react';
 
 export function AddToCart({
   variants,
-  availableForSale
+  availableForSale,
+  product
 }: {
   variants: ProductVariant[];
   availableForSale: boolean;
+  product?: Product;
 }) {
   const [selectedVariantId, setSelectedVariantId] = useState(variants[0]?.id);
   const router = useRouter();
@@ -44,6 +47,21 @@ export function AddToCart({
           if (error) {
             alert(error);
             return;
+          }
+
+          // Track add to cart event
+          if (product) {
+            const selectedVariant = variants.find((v) => v.id === selectedVariantId);
+            if (selectedVariant) {
+              trackAddToCart({
+                id: product.id,
+                name: product.title,
+                price: parseFloat(selectedVariant.price.amount),
+                currency: selectedVariant.price.currencyCode,
+                quantity: 1,
+                variant: selectedVariant.title
+              });
+            }
           }
 
           router.refresh();

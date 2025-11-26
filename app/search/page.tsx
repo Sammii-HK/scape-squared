@@ -1,14 +1,30 @@
+import type { Metadata } from 'next';
 import Grid from 'components/grid';
 import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
-import { getAllLiveProducts } from 'lib/utils';
+import { getAllLiveProducts, getCanonicalUrl } from 'lib/utils';
 
 export const runtime = 'edge';
+export const revalidate = 86400; // Revalidate daily (24 hours)
 
-export const metadata = {
-  title: 'Search',
-  description: 'Search for products in the store.'
-};
+export function generateMetadata({
+  searchParams
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}): Metadata {
+  const canonicalUrl = getCanonicalUrl(
+    '/search',
+    searchParams ? new URLSearchParams(searchParams as Record<string, string>) : undefined
+  );
+
+  return {
+    title: 'Search',
+    description: 'Search for products in the store.',
+    alternates: {
+      canonical: canonicalUrl
+    }
+  };
+}
 
 export default async function SearchPage({
   searchParams

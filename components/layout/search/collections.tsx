@@ -6,7 +6,9 @@ import FilterList from './filter';
 
 async function CollectionList() {
   const collections = await getCollections();
-  const filteredCollections = collections.filter(collection => !collection.title.toLowerCase().includes('hidden'))
+  const filteredCollections = collections.filter(
+    (collection) => !collection.title.toLowerCase().includes('hidden')
+  );
   return <FilterList list={filteredCollections} title="Collections" />;
 }
 
