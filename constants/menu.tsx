@@ -56,8 +56,8 @@ export const menu = [
     path: '/about'
   },
   {
-    title: 'Responsibility',
-    key: 'responsibility',
-    path: '/responsibility'
+    title: 'Sustainability',
+    key: 'sustainability',
+    path: '/sustainability'
   }
 ];

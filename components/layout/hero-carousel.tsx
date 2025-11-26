@@ -7,11 +7,13 @@ import { useEffect, useState } from 'react';
 const carouselItems = [
   {
     key: 'art-prints',
-    alt: ''
+    alt: 'Shop Art Prints - Photography-inspired wall art by scape²',
+    title: 'Art Prints Collection'
   },
   {
     key: 't-shirts',
-    alt: ''
+    alt: 'Shop T-Shirts - 100% organic cotton garments by scape²',
+    title: 'T-Shirts Collection'
   }
 ];
 
@@ -19,15 +21,22 @@ export const HeroCarousel = () => {
   const [activeCarouselItem, setActiveCarouselItem] = useState(carouselItems[0]);
 
   useEffect(() => {
-    setTimeout(() => {
-      activeCarouselItem!.key === 'art-prints'
-        ? setActiveCarouselItem(carouselItems[1])
-        : setActiveCarouselItem(carouselItems[0]);
+    const timer = setTimeout(() => {
+      setActiveCarouselItem((current) =>
+        current?.key === 'art-prints' ? carouselItems[1] : carouselItems[0]
+      );
     }, 5000);
+
+    return () => clearTimeout(timer);
   }, [activeCarouselItem]);
 
   return (
-    <Link className="cursor-pointer" href={`/collections/${activeCarouselItem!.key}`}>
+    <Link
+      className="block w-full"
+      href={`/collections/${activeCarouselItem!.key}`}
+      aria-label={`Shop ${activeCarouselItem!.title}`}
+    >
+      {/* Mobile Image */}
       <Image
         className="w-full md:hidden"
         width={640}
@@ -35,18 +44,19 @@ export const HeroCarousel = () => {
         alt={activeCarouselItem!.alt}
         src={`/carousel/${activeCarouselItem!.key}.jpg`}
         sizes="100vw"
-        quality={85}
-        priority={true}
+        quality={80}
+        priority
       />
+      {/* Desktop Image */}
       <Image
-        className="w-full hidden md:block"
+        className="hidden w-full md:block"
         width={1400}
         height={640}
         alt={activeCarouselItem!.alt}
         src={`/carousel/${activeCarouselItem!.key}-tablet.jpg`}
         sizes="100vw"
-        quality={85}
-        priority={true}
+        quality={80}
+        priority
       />
     </Link>
   );

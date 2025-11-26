@@ -42,7 +42,7 @@ export function SustainabilityInfo() {
           <br />
           Our
           <a href="#fsc"> FSC </a>
-          certified labels ae attached to our products by a metal safety pin. <br />
+          certified labels are attached to our products by a metal safety pin. <br />
           <br />
           Our parcels are sent with FSC certified paper packages, so you can feel completely guilt
           free about your purchase!

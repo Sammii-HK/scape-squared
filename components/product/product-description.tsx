@@ -1,5 +1,4 @@
 import { AddToCart } from 'components/cart/add-to-cart';
-import { BrandPillars } from 'components/brand/brand-pillars';
 import { SustainabilityBadges } from 'components/brand/sustainability-badges';
 import { ProductTrustSignals } from 'components/conversion/product-trust-signals';
 import { Product } from 'lib/shopify/types';
@@ -15,11 +14,9 @@ export function ProductDescription({ product }: { product: Product }) {
         availableForSale={product.availableForSale}
         product={product}
       />
-      <ProductTrustSignals />
-      <SustainabilityBadges />
-      <BrandPillars />
+      <ProductTrustSignals product={product} />
       <DescriptionContent product={product} />
-      {/* {!product.tags.includes('wall') && <SustainabilityInfo />} */}
+      <SustainabilityBadges product={product} />
     </>
   );
 }

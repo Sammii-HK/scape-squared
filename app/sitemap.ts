@@ -3,9 +3,9 @@ import { MetadataRoute } from 'next';
 
 const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-  : 'http://localhost:3000';
+  : process.env.NEXT_PUBLIC_SITE_URL || 'https://scapesquared.com';
 
-export default async function sitemap(): Promise<Promise<Promise<MetadataRoute.Sitemap>>> {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routesMap = [''].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date().toISOString(),
@@ -26,7 +26,7 @@ export default async function sitemap(): Promise<Promise<Promise<MetadataRoute.S
     products.map((product) => ({
       url: `${baseUrl}/products/${product.handle}`,
       lastModified: product.updatedAt,
-      changeFrequency: 'monthly' as const,
+      changeFrequency: 'weekly' as const,
       priority: 0.9
     }))
   );
