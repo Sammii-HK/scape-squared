@@ -11,8 +11,11 @@ import {
   getCanonicalUrl
 } from '../../../lib/utils';
 
-export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (24 hours)
+
+export function generateStaticParams() {
+  return ['wall', 'wardrobe', ...collectionTypes].map((collection) => ({ collection }));
+}
 
 export async function generateMetadata({
   params

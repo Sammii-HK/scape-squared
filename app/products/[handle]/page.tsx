@@ -9,13 +9,17 @@ import { Gallery } from 'components/product/gallery';
 import { ProductDescription } from 'components/product/product-description';
 import { Breadcrumbs } from 'components/ui/breadcrumbs';
 import { HIDDEN_PRODUCT_TAG } from 'lib/constants';
-import { getProduct, getProductRecommendations } from 'lib/shopify';
+import { getProduct, getProductRecommendations, getProducts } from 'lib/shopify';
 import { Image } from 'lib/shopify/types';
 import { getCanonicalUrl } from 'lib/utils';
 import Link from 'next/link';
 
-export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (24 hours)
+
+export async function generateStaticParams() {
+  const products = await getProducts({});
+  return products.map((product) => ({ handle: product.handle }));
+}
 
 export async function generateMetadata({
   params

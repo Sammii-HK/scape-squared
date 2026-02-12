@@ -8,7 +8,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (24 hours)
 
 const siteUrl = process.env.NEXT_PUBLIC_VERCEL_URL

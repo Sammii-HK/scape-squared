@@ -4,7 +4,6 @@ import ProductGridItems from 'components/layout/product-grid-items';
 import { defaultSort, sorting } from 'lib/constants';
 import { getAllLiveProducts, getCanonicalUrl } from 'lib/utils';
 
-export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (24 hours)
 
 export function generateMetadata({

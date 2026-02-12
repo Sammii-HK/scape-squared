@@ -1,12 +1,15 @@
 import type { Metadata } from 'next';
 
 import Prose from 'components/ui/prose';
-import { getPage } from 'lib/shopify';
+import { getPage, getPages } from 'lib/shopify';
 import { notFound } from 'next/navigation';
 
-export const runtime = 'edge';
-
 export const revalidate = 86400; // Revalidate daily (24 hours)
+
+export async function generateStaticParams() {
+  const pages = await getPages();
+  return pages.map((page) => ({ page: page.handle }));
+}
 
 export async function generateMetadata({
   params
