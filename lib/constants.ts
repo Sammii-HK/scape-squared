@@ -22,7 +22,8 @@ export const sorting: SortFilterItem[] = [
 
 export const TAGS = {
   collections: 'collections',
-  products: 'products'
+  products: 'products',
+  pages: 'pages'
 };
 
 export const HIDDEN_PRODUCT_TAG = 'hidden-product';
