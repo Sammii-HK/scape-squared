@@ -1,4 +1,4 @@
-import { getCollection } from 'lib/shopify';
+import { getCollection, getCollections } from 'lib/shopify';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
@@ -8,8 +8,12 @@ import { Breadcrumbs } from 'components/ui/breadcrumbs';
 import { defaultSort, sorting } from 'lib/constants';
 import { getLiveCollectionProducts, getCanonicalUrl } from 'lib/utils';
 
-export const runtime = 'edge';
 export const revalidate = 86400; // Revalidate daily (24 hours)
+
+export async function generateStaticParams() {
+  const collections = await getCollections();
+  return collections.filter((c) => c.handle).map((collection) => ({ collection: collection.handle }));
+}
 
 export async function generateMetadata({
   params,
