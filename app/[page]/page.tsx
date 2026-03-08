@@ -4,7 +4,7 @@ import Prose from 'components/ui/prose';
 import { getPage, getPages } from 'lib/shopify';
 import { notFound } from 'next/navigation';
 
-export const revalidate = 86400; // Revalidate daily (24 hours)
+export const revalidate = 604800; // Weekly — Shopify webhooks handle real-time updates
 
 export async function generateStaticParams() {
   const pages = await getPages();

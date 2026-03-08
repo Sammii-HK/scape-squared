@@ -8,7 +8,7 @@ import { Breadcrumbs } from 'components/ui/breadcrumbs';
 import { defaultSort, sorting } from 'lib/constants';
 import { getLiveCollectionProducts, getCanonicalUrl } from 'lib/utils';
 
-export const revalidate = 86400; // Revalidate daily (24 hours)
+export const revalidate = 604800; // Weekly — Shopify webhooks handle real-time updates
 
 export async function generateStaticParams() {
   const collections = await getCollections();

@@ -1,5 +1,3 @@
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { GoogleAnalytics } from 'components/analytics/google-analytics';
 import Navbar from 'components/layout/navbar';
 import type { Metadata } from 'next';
@@ -109,8 +107,6 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
         <Suspense>
           <main>{children}</main>
         </Suspense>
-        <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

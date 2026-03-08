@@ -11,7 +11,7 @@ import {
   getCanonicalUrl
 } from '../../../lib/utils';
 
-export const revalidate = 86400; // Revalidate daily (24 hours)
+export const revalidate = 604800; // Weekly — Shopify webhooks handle real-time updates
 
 export function generateStaticParams() {
   return ['wall', 'wardrobe', ...collectionTypes].map((collection) => ({ collection }));

@@ -8,7 +8,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
-export const revalidate = 86400; // Revalidate daily (24 hours)
+export const revalidate = 604800; // Weekly — Shopify webhooks handle real-time updates
 
 const siteUrl = process.env.NEXT_PUBLIC_VERCEL_URL
   ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
